@@ -7,6 +7,10 @@ using ProductCatalog.Api.Domain.Product;
 
 namespace ProductCatalog.Tests
 {
+    //the test classes are not structured with dependency injections. So tomorrow if we need to substitute the dependencies it will be difficult. 
+    // we should create _sut (system under testing objects) and Pass the references of dependency to mock library and intilize them in constructor
+    // we also need to setup the mock also for different test scenarios. 
+    //Include other test cases like negative test cases etc.
     public class GetSortedProductQueryHandlerTests
     {
         [Fact]

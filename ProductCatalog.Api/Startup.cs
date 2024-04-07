@@ -30,16 +30,17 @@ namespace ProductCatalog.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+         
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddTransient<GetSortedProductQueryHandler>();
+            //We can use scope instead of Transient for service object life.
             services.AddTransient<IProductHttpClient, ProductHttpClient>();
             services.AddTransient<IShopperHistoryHttpClient, ShopperHistoryHttpClient>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //We can have any Filters like Exceptionfilter or Authentication Filter injected in middleware.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

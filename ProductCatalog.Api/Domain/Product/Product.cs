@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 namespace ProductCatalog.Api.Domain.Product
 {
     //Can we use Record type here.
+    //public record Product(string Name, double Price, double Quantity);
     // Benefits: In that case we will achieve Value Object features
     // concise and readable code using Primary Constructor 
     // Benefits of Record type inbuilt features like With, Object Representation or ToString method, 

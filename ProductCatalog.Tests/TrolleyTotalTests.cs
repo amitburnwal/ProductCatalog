@@ -9,6 +9,7 @@ namespace ProductCatalog.Tests
 {
     public class TrolleyTotalTests
     {
+        //Include test cases to Check for other http status code 
         [Fact]
         public async Task SortEndpointIsConfiguredAndReturnsCorrectJsonResponseForRecommended()
         {

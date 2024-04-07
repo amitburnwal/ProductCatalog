@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProductCatalog.Api.Controllers
 {
-    //we can think of creating a CustomBase Controller where we can injecct any common code we want to run for all requests like ExceptionFilter or AuthenticationFilter etc.
+    //we can think of creating a CustomBase Controller where we can inject any common code we want to run for all requests like ExceptionFilter or AuthenticationFilter etc.
     [Route("user")]
     public class UserController : ControllerBase
     {

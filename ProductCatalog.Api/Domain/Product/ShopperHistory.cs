@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using System.Collections.Generic;
 
 namespace ProductCatalog.Api.Domain.Product
@@ -11,6 +12,7 @@ namespace ProductCatalog.Api.Domain.Product
         }
 
         public string CustomerId { get; private set; }
+        //use using statement instead of full namespace identifier
         public List<Domain.Product.Product> Products { get; private set; }
         protected override IEnumerable<object> GetEqualityComponents()
         {

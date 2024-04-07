@@ -15,6 +15,7 @@ namespace ProductCatalog.Api
             var proxyUrl = "http://dev-wooliesx-recruitment.azurewebsites.net/api/resource/trolleyCalculator";
             using var reader = new StreamReader(context.Request.Body, Encoding.UTF8);
             var postRequestContent = await reader.ReadToEndAsync();
+            //Instead of passing token in query param we should use JWT for API Authentication. We can think of using HTTP-Only header as well Same-Client = true;
             var postJsonAsync = proxyUrl
                 .SetQueryParam("token", "25a4f06f-8fd5-49b3-a711-c013c156f8c8")
                 .WithHeader("Accept", "application/json")

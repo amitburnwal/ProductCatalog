@@ -35,9 +35,8 @@ namespace ProductCatalog.Api.Domain.Product
             var products = await _productHttpClient.GetProducts();
             var productList = products.ToList();
             //If else messy code. Can move to Switch Case for better readability            
-            //Moreover the logic to sort the product should move to a method instead of here for readability and extensibility purpose. if Filtering of product is required then we can think of moving the logic to api itself.
+            //Moreover the logic to sort the product should move to a method instead of here for readability and extensibility purpose. if Filtering of product is required then we can think of moving the logic to api itself for performance boost.
             // String comparision instead should go for Enum values check for typo errors.
-            // The GetSortedProductQueryResponse class do not reflect a noun. It looks more like a method name. We can think of a DTO here. 
             // The recommend method should be delegated to a service call. 
             if (getSortedProductQuery.SortOption == "Low")
                 return new GetSortedProductQueryResponse(productList.OrderBy(product => product.Price));
@@ -55,7 +54,7 @@ namespace ProductCatalog.Api.Domain.Product
 
         private async Task<IEnumerable<Product>> Recommend(IEnumerable<Product> products)
         {
-            var shopperHistory = await _shopperHistoryHttpClient.GetShopperHistory();
+            var shopperHistory = _shopperHistoryHttpClient.GetShopperHistory().Result;
 
             var productsOrderedBasedOnNumberOfOrders = from shoppingHistory in shopperHistory
                 let allOrders = shoppingHistory.Products
@@ -79,6 +78,7 @@ namespace ProductCatalog.Api.Domain.Product
 
     public class GetSortedProductQueryResponse
     {
+        //We should not use entity directly instead some viewModel or DTO for the Product and use Automapper to map the objects.
         public GetSortedProductQueryResponse(IEnumerable<Product> products)
         {
             Products = products;
