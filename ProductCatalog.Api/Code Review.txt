@@ -4,5 +4,5 @@ Common Observation
 3) Test cases are not covered for negative and edge case scenarios
 4) Authentication Token is passed in query param. Instead API Authentication should be done via JWT token which is more secured and self contained. 
 5) Urls and application constants are declared inline. instead they should be declared in appsettings.json file.
-6) No Logging and exception code written
+6) No Logging and exception code written. We can think of some Exception Filter in middleware to catch exceptions. 
 7) 
