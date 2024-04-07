@@ -1,5 +1,6 @@
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Flurl;
@@ -21,6 +22,16 @@ namespace ProductCatalog.Api
                 .WithHeader("Accept", "application/json")
                 .WithHeader("Content-Type", "application/json-patch+json")
                 .PostAsync(new StringContent(postRequestContent));
+
+            //we should not call the property postJsonAsync.Result as it initiate the synchronous call. We can think of avoiding that as this method behaviour is asynchronous
+            #region Commentedcode
+            //var httpClient = new HttpClient();
+            //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+            //var response = await httpClient.PostAsync(proxyUrl, new StringContent(postRequestContent));
+            //var responseContent = await response.Content.ReadAsStringAsync();
+            //await context.Response.WriteAsync(responseContent);
+            #endregion 
 
             var readAsStringAsync = await postJsonAsync.Result.Content.ReadAsStringAsync();
 
