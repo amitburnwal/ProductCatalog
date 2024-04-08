@@ -54,7 +54,24 @@ namespace ProductCatalog.Api.Domain.Product
 
         private async Task<IEnumerable<Product>> Recommend(IEnumerable<Product> products)
         {
+            //We should not use Result property here as it blocks the asynchronous flow and may create a deadlock. instead we can use await.
+            //var shopperHistory = await _shopperHistoryHttpClient.GetShopperHistory();
             var shopperHistory = _shopperHistoryHttpClient.GetShopperHistory().Result;
+            //We can rewrite below LINQ Query in better way
+            //1) removing the intermediate variable orderedProducts
+            //2) joining both the query using SelectMany
+        //    var productsOrderedBasedOnNumberOfOrders = shopperHistory
+        //      .SelectMany(shoppingHistory => shoppingHistory.Products)
+        //      .GroupBy(order => order.Name)
+        //      .Select(ordersGroupedByName => new
+        //      {
+        //          NumberOfOrders = ordersGroupedByName.Sum(product => product.Quantity),
+        //          Product = products.FirstOrDefault(product => product.Name == ordersGroupedByName.Key)
+        //      })
+        //      .OrderByDescending(productsAndNumberOfOrders => productsAndNumberOfOrders.NumberOfOrders)
+        //      .Select(productsAndNumberOfOrders => productsAndNumberOfOrders.Product)
+        //      .ToList();
+
 
             var productsOrderedBasedOnNumberOfOrders = from shoppingHistory in shopperHistory
                 let allOrders = shoppingHistory.Products
@@ -69,6 +86,9 @@ namespace ProductCatalog.Api.Domain.Product
                 select productsAndNumberOfOrders.Product;
             
             var orderedProducts = productsOrderedBasedOnNumberOfOrders.ToList();
+
+
+
             var productsThatWereNotOrdered = products.Except(orderedProducts);
             orderedProducts.AddRange(productsThatWereNotOrdered);
             return orderedProducts;

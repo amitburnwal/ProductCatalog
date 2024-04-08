@@ -23,7 +23,7 @@ namespace ProductCatalog.Api
                 .WithHeader("Content-Type", "application/json-patch+json")
                 .PostAsync(new StringContent(postRequestContent));
 
-            //we should not call the property postJsonAsync.Result as it initiate the synchronous call. We can think of avoiding that as this method behaviour is asynchronous
+            //we should not call the property postJsonAsync.Result as it initiate the synchronous call. We can think of avoiding that and using await as this method behaviour is asynchronous
             #region Commentedcode
             //var httpClient = new HttpClient();
             //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
